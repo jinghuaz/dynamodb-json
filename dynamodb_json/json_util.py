@@ -21,8 +21,8 @@ def json_serial(o):
         else:
             serial = long(o)
     elif isinstance(o, uuid.UUID):  #判断o实例对象是不是uuid模块类型
-        serial = str(o.hex)
-    elif isinstance(o, set):
+        serial = str(o.hex)  #转换一个整数对象为十六进制的字符串表示
+    elif isinstance(o, set):  #set是一个无序且不重复的元素集合
         serial = list(o)
     else:
         serial = o
