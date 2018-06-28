@@ -9,18 +9,18 @@ from boto3.dynamodb.types import TypeSerializer
 
 
 def json_serial(o):
-    if isinstance(o, datetime):
-        serial = o.strftime('%Y-%m-%dT%H:%M:%S.%f')
-    elif isinstance(o, Decimal):
-        if o % 1 > 0:
-            serial = float(o)
-        elif six.PY3:
+    if isinstance(o, datetime):  #判断o实例对象是不是datatime模块类型
+        serial = o.strftime('%Y-%m-%dT%H:%M:%S.%f')  #strftime() 用来格式化datetime 对象
+    elif isinstance(o, Decimal):  #判断o实例对象是不是Decimal模块类型
+        if o % 1 > 0:  #取余
+            serial = float(o)  #用于将整数和字符串转换成浮点数
+        elif six.PY3:  #o是整数，如果是python3格式，转换为int类型
             serial = int(o)
-        elif o < sys.maxsize:
+        elif o < sys.maxsize:  #小整数即小于sys.maxsize
             serial = int(o)
         else:
             serial = long(o)
-    elif isinstance(o, uuid.UUID):
+    elif isinstance(o, uuid.UUID):  #判断o实例对象是不是uuid模块类型
         serial = str(o.hex)
     elif isinstance(o, set):
         serial = list(o)
